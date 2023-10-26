@@ -18,8 +18,8 @@ return new class extends Migration
                 $table->decimal('amount');
                 $table->string('status',45);
                 $table->string('type',45);
-//            $table->foreignId(\App\Models\User::class, 'created_by')->nullable();
-//            $table->foreignId(\App\Models\User::class, 'updated_by')->nullable();
+                $table->foreignIdFor(\App\Models\User::class, 'created_by')->nullable();
+                $table->foreignIdFor(\App\Models\User::class, 'updated_by')->nullable();
                 $table->timestamps();
 
             });

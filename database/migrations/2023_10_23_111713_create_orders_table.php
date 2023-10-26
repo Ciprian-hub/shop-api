@@ -17,11 +17,9 @@ return new class extends Migration
                 $table->decimal('total_price', 20, 2);
                 $table->string('status', 10, 2);
                 $table->timestamps();
+                $table->foreignIdFor(User::class, 'created_by')->nullable();
+                $table->foreignIdFor(User::class, 'updated_by')->nullable();
             });
-//            Schema::create('orders', function (Blueprint $table) {
-//                $table->foreignId(User::class, 'created_by')->nullable();
-//                $table->foreignId(User::class, 'updated_by')->nullable();
-//            });
         }
     }
 

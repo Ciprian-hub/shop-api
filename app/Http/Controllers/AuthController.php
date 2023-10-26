@@ -23,14 +23,18 @@ class AuthController extends Controller
                 'message' => 'Email or password incorrect'
             ], 422);
         }
+
         /** @var  $user */
+
         $user = Auth::user();
+
         if(!$user->is_admin) {
             Auth::logout();
             return response([
                 'message' => 'You don/t have permission to auth as admin'
             ], 403);
         }
+
         $token = $user->createToken('main')->plainTextToken;
         return response([
             'user' => new UserResource($user),

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('status',45)->nullable();
             $table->unsignedBigInteger('customer_id');
-//            $table->foreignId(\App\Models\User::class, 'created_by')->nullable();
-//            $table->foreignId(\App\Models\User::class, 'updated_by')->nullable();
+            $table->foreignIdFor(\App\Models\User::class, 'created_by')->nullable();
+            $table->foreignIdFor(\App\Models\User::class, 'updated_by')->nullable();
             $table->timestamps();
         });
     }

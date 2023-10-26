@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'is_admin' => true
         ]);
+        $this->call([
+            ProductSeeder::class
+        ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
