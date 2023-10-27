@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductListResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -69,10 +69,28 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @throws \Exception
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(StoreProductRequest $request, Product $product): ProductResource
     {
-        $product->update($request->validated());
+        $data = $request->validated();
+        $data['updated_by'] = $request->user()->id;
+
+            /** @var UploadedFile $image */
+        $image = $data['image'] ?? null;
+        if($image){
+            $relativePath = $this->saveImage($image);
+            $data['image'] = URL::to(Storage::url($relativePath));
+            $data['image_m'] = $image->getClientMimeType();
+            $data['image_size'] = $image->getSize();
+
+            if($product->image) {
+                Storage::deleteDirectory('/public/' . dirname($product->image));
+            }
+        }
+
+        $product->update($data);
+
         return new ProductResource($product);
     }
 
@@ -96,6 +114,7 @@ class ProductController extends Controller
         if(!Storage::putFileAs('public/' . $path, $image, $image->getClientOriginalName())){
             throw new \Exception("Unable to save file \"{$image->getClientOriginalName()}\"");
         }
+
         return $path . '/' . $image->getClientOriginalName();
     }
 }
