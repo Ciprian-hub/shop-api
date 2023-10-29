@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,10 +17,15 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show(Product $product)
+    public function show(Product $product, Request $request)
     {
+        $cartItems = Cart::getCartItems();
         return view('product.view', [
-            'product' => $product
+            'product' => $product,
+            'foo' => $cartItems
+//            'request' => \request(),
+//            'user' => $request->user(),
+//            'cookie' => $request->cookie()
         ]);
     }
 }

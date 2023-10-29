@@ -1,6 +1,7 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
+import {post} from "./http.js";
 
 window.Alpine = Alpine;
 
