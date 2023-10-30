@@ -18,7 +18,7 @@ class Customer extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
     private function _getAddresses() {
-        return $this->hasOne(Customer::class, 'customer_id', 'user_id');
+        return $this->hasOne(CustomerAddress::class, 'customer_id', 'user_id');
     }
 
     public function shippingAddress() {

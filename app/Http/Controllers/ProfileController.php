@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AddressType;
+use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Country;
 use App\Models\Customer;
+use App\Models\CustomerAddress;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,17 +34,34 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function store(ProfileRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $customerData = $request->validated();
+        $shippingData = $customerData['shipping'];
+        $billingData = $customerData['billing'];
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+        $customer = $user->customer;
+
+        $customer->update($customerData);
+
+        if($customer->shippingAddress) {
+            $customer->shippingAddress->update($shippingData);
+        } else {
+            $shippingData['customer_id'] = $customer->user_id;
+            $shippingData['type'] = AddressType::Shipping->value;
+            CustomerAddress::create($shippingData);
         }
 
-        $request->user()->save();
+        if($customer->billingAddress) {
+            $customer->billingAddress->update($billingData);
+        } else {
+            $billingData['customer_id'] = $customer->user_id;
+            $billingData['type'] = AddressType::Billing->value;
+            CustomerAddress::create($billingData);
+        }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('home');
     }
 
     /**

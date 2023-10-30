@@ -76,12 +76,12 @@
                             Shipping and taxes calculated at checkout.
                         </p>
 
-{{--                        <form action="{{route('cart.checkout')}}" method="post">--}}
-{{--                            @csrf--}}
+                        <form action="{{route('cart.checkout')}}" method="post">
+                            @csrf
                             <button type="submit" class="bg-sky-700 w-[300px] mx-auto py-3 text-lg">
                                 Proceed to Checkout
                             </button>
-{{--                        </form>--}}
+                        </form>
                     </div>
                 </div>
                 <!--/ Product Items -->

@@ -129,4 +129,9 @@ class CartController extends Controller
             ]);
         }
     }
+    public function checkout(Request $request)
+    {
+        $stripeSecretKey = 'sk_test_51O6utUE7rr7Hoy6AoNGDd742nsY27srvo5DuyXhzNtW48kJm55pAnaVSGjEATfuyLheP8ZUhVBIlnyUoOxxNjPcw00n0gZm01e';
+        \Stripe\Stripe::setApiKey($stripeSecretKey);
+    }
 }
