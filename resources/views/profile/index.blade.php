@@ -1,0 +1,9 @@
+<x-app-layout>
+    Profile
+    <pre>
+        {{$user}}
+        {{$customer}}
+        {{$shippingAddress}}
+        {{$countries}}
+    </pre>
+</x-app-layout>

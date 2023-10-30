@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true
         ]);
         $this->call([
-            ProductSeeder::class
+            ProductSeeder::class,
+            CountrySeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
