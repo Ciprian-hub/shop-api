@@ -1,13 +1,19 @@
 <x-app-layout>
+    <div class="mb-10">
+        <h1 class="text-5xl text-center mt-20">Products</h1>
+        <p class="text-center text-lg text-gray-900 mt-4">
+            Order it for you or for your beloved ones
+        </p>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5">
         @foreach($products as $product)
             <div x-data = "productItem({{json_encode([
-    'id' => $product->id,
-    'image' => $product->image,
-    'title' => $product->title,
-    'price' => $product->price,
-    'addToCartUrl' => route('cart.add', $product)
-])}})"
+            'id' => $product->id,
+            'image' => $product->image,
+            'title' => $product->title,
+            'price' => $product->price,
+            'addToCartUrl' => route('cart.add', $product)
+])              }})"
                 class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
                 <a href="{{route('product.view', $product->slug)}}" class="block aspect-w-3 aspect-h-2">
                     <img class="rounded object-contain" src="{{$product['image']}}" alt=""/>
@@ -16,7 +22,7 @@
                     <a href="#">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{$product['title']}}</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700">{{$product['price']}}</p>
+                    <p class="mb-3 font-normal text-gray-700">{{$product['price']}}$</p>
 
                     <div>
                         <button class="btn-primary" @click="addToCart()">

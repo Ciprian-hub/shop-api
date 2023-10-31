@@ -17,9 +17,20 @@
 </head>
 <body>
 @include('layouts.navigation')
-
-<main class="p-5">
-    {{ $slot }}
+<main class="bg-white">
+    <div class="w-full mx-auto">
+        <div class="hero mx-auto w-full h-[100vh] flex items-center justify-center" style="background-image: url('images/bg-image.png'); background-size: cover; background-position: center; background-repeat: no-repeat")>
+            <div class="bg-white bg-opacity-75 shadow-sm w-[730px] h-[349px] flex flex-col items-center lg:px-20 mx:px-8 sm:p-8 py-6">
+                <p class="text-3xl">🌱</p>
+                <h1 class="text-3xl mt-3">The nature candle</h1>
+                <p class="text-center text-lg text-gray-900 mt-4">All handmade with natural soy wax, Candleaf is a companion for all your pleasure moments </p>
+                <button class="bg-green-400 py-2 px-12 text-white rounded-md mt-12">Discovery our collection</button>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-[1440px] mx-auto">
+        {{ $slot }}
+    </div>
 </main>
 
 <!-- Toast -->

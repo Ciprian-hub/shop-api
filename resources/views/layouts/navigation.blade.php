@@ -4,10 +4,12 @@
         cartItemsCount: {{ \App\Http\Helpers\Cart::getCartItemsCount() }},
     }"
     @cart-change.window="cartItemsCount = $event.detail.count"
-    class="flex justify-between bg-slate-800 shadow-md text-white"
+    class="flex justify-between items-center bg-white text-black max-w-[1440px] mx-auto"
 >
     <div>
-        <a href="{{route('home')}}" class="block py-navbar-item pl-5"> Logo </a>
+        <a href="{{route('home')}}" class="block py-navbar-item py-4">
+            <img src="{{asset('images/logo.png')}}" alt="">
+        </a>
     </div>
     <!-- Responsive Menu -->
     <div
@@ -197,13 +199,11 @@
     <nav class="hidden md:block">
         <ul class="grid grid-flow-col items-center">
             <li>
-                <a
-                    href="{{route('cart.index')}}"
-                    class="relative inline-flex items-center py-navbar-item px-navbar-item hover:bg-slate-900"
-                >
+                <a href="{{route('cart.index')}}"
+                    class="relative inline-flex items-center py-navbar-item px-navbar-item">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 mr-2"
+                        class="h-6 w-6 mr-2 mt-1"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -215,26 +215,18 @@
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                         />
                     </svg>
-                    Cart
-                    <small
-                        x-show="cartItemsCount"
-                        x-transition
-                        x-cloak
-                        x-text="cartItemsCount"
-                        class="absolute z-[100] top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-500"
-                    ></small>
                 </a>
             </li>
             @if (!Auth::guest())
                 <li x-data="{open: false}" class="relative">
                     <a
                         @click="open = !open"
-                        class="cursor-pointer flex items-center py-navbar-item px-navbar-item pr-5 hover:bg-slate-900"
+                        class="cursor-pointer flex items-center py-navbar-item px-navbar-item"
                     >
               <span class="flex items-center">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 mr-2"
+                    class="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -246,32 +238,19 @@
                       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                My Account
               </span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 ml-2"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
                     </a>
                     <ul
                         @click.outside="open = false"
                         x-show="open"
                         x-transition
                         x-cloak
-                        class="absolute z-10 right-0 bg-slate-800 py-2 w-48"
+                        class="absolute z-10 right-0 py-2 w-48 shadow-md rounded-lg"
                     >
                         <li>
                             <a
                                 href="{{ route('profile.view') }}"
-                                class="flex px-3 py-2 hover:bg-slate-900"
+                                class="flex px-3 py-2 hover:bg-gray-50"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -293,7 +272,7 @@
                         <li>
                             <a
                                 href="#"
-                                class="flex px-3 py-2 hover:bg-slate-900"
+                                class="flex px-3 py-2 hover:bg-gray-50"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +296,7 @@
                                 @csrf
 
                                 <a href="{{ route('logout') }}"
-                                   class="flex px-3 py-2 hover:bg-slate-900"
+                                   class="flex px-3 py-2 hover:bg-gray-50"
                                    onclick="event.preventDefault();
                                         this.closest('form').submit();">
                                     <svg
