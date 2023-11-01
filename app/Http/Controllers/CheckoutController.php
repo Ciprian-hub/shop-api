@@ -78,11 +78,17 @@ class CheckoutController extends Controller
                 return view('checkout.failure', ['message' => 'Invalid Session ID']);
             }
 
-            $payment = Payment::query()->where('session_id', $session_id)->get();
+            $payment = Payment::query()->where(['session_id' => $session_id, 'status' => PaymentStatus::Pending])->get();
 
-            if(!$payment || $payment->status !== PaymentStatus::Pending->value) {
+            if(!$payment) {
                 return view('checkout.failure');
             }
+
+            $payment->status = PaymentStatus::Paid;
+            $payment->update();
+            $order = $payment->order;
+            $order->status = OrderStatus::Paid;
+            $order->update();
 
             $customer = \Stripe\Customer::retrieve($session->customer);
 
