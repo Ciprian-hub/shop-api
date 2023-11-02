@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Http\Helpers\Cart;
+use App\Models\CartItem;
 use App\Models\Orders;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -78,17 +79,21 @@ class CheckoutController extends Controller
                 return view('checkout.failure', ['message' => 'Invalid Session ID']);
             }
 
-            $payment = Payment::query()->where(['session_id' => $session_id, 'status' => PaymentStatus::Pending])->get();
+            $payment = Payment::query()->where(['session_id' => $session_id, 'status' => PaymentStatus::Pending])->first();
 
             if(!$payment) {
                 return view('checkout.failure');
             }
-
+            $user = $request->user();
             $payment->status = PaymentStatus::Paid;
             $payment->update();
             $order = $payment->order;
             $order->status = OrderStatus::Paid;
+            $order->created_by = $user->id;
             $order->update();
+
+            $user = $request->user();
+            CartItem::where(['user_id' => $user->id]);
 
             $customer = \Stripe\Customer::retrieve($session->customer);
 

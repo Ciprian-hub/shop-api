@@ -112,7 +112,7 @@
                         </li>
                         <li class="hover:bg-slate-900">
                             <a
-                                href="#"
+                                href="{{route('order.index')}}"
                                 class="flex items-center px-3 py-2 hover:bg-slate-900"
                             >
                                 <svg
@@ -271,7 +271,7 @@
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="{{route('order.index')}}"
                                 class="flex px-3 py-2 hover:bg-gray-50"
                             >
                                 <svg

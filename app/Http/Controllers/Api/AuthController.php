@@ -29,12 +29,13 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
-        if(!$user->is_admin) {
-            Auth::logout();
-            return response([
-                'message' => 'You don/t have permission to auth as admin'
-            ], 403);
-        }
+//        if(!$user->is_admin) {
+//
+//            Auth::logout();
+//            return response([
+//                'message' => 'You don/t have permission to auth as admin'
+//            ], 403);
+//        }
 
         $token = $user->createToken('main')->plainTextToken;
         return response([
