@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Orders;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -11,7 +11,7 @@ class OrderController extends Controller
     {
         /** @var  $user */
         $user = $request->user();
-        $orders = Orders::where('id', $user->id)->get();
+        $orders = Order::where('created_by', $user->id)->get();
 
         return view('order.index', compact('orders'));
     }
