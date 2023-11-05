@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -16,8 +17,10 @@ class OrderController extends Controller
         return view('order.index', compact('orders'));
     }
 
-    public function view()
+    public function view(Request $request, Order $order)
     {
+        $user = $request->user();
 
+        return view('order.view', compact('order'));
     }
 }

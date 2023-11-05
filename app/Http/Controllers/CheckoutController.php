@@ -110,7 +110,7 @@ class CheckoutController extends Controller
             $order->status = OrderStatus::Paid->value;
             $order->update();
 
-            CartItem::where(['user_id' => $user->id]);
+            CartItem::where(['user_id' => $user->id])->delete();
 
             return view('checkout.success');
 

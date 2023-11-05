@@ -26,7 +26,7 @@
             @foreach($orders as $order)
                 <tr class="bg-white border-b text-gray-900">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        #{{$order['id']}}
+                        <a href="{{route('order.view', $order)}}"> #{{$order['id']}}</a>
                     </th>
                     <td class="px-6 py-4">
                         {{$order['created_at']}}
