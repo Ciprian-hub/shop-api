@@ -26,7 +26,7 @@ class OrderController extends Controller
         return OrderResource::collection($query->paginate($perPage));
     }
 
-    public function view (Order $order)
+    public function view (Request $request, Order $order)
     {
         return new OrderResource($order);
     }
