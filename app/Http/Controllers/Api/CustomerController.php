@@ -7,6 +7,7 @@ use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Http\Resources\OrderListResource;
 use App\Http\Resources\OrderResource;
+use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -25,8 +26,8 @@ class CustomerController extends Controller
         $query = \App\Models\Customer::query();
         $query->orderBy($sortField, $sortDirection);
         if($search){
-            $query->where('id', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%");
+            $query->where('first_name', 'like', "%{$search}%")
+                ->orWhere('last_name', 'like', "%{$search}%");
         }
         return CustomerResource::collection($query->paginate($perPage));
     }
@@ -46,4 +47,8 @@ class CustomerController extends Controller
         return new CustomerResource($customer);
     }
 
+    public function getCountries()
+    {
+       return Country::query()->orderBy('name', 'desc')->get();
+    }
 }

@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -26,9 +27,14 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::apiResource('products', ProductController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('customers', CustomerController::class);
-
+    Route::get('countries', [CustomerController::class, 'getCountries']);
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/{order}', [OrderController::class, 'view']);
+
+    Route::get('/dashboard/customers', [DashboardController::class, 'activeCustomers']);
+    Route::get('/dashboard/products', [DashboardController::class, 'activeProducts']);
+    Route::get('/dashboard/orders', [DashboardController::class, 'paidOrders']);
+    Route::get('/dashboard/total', [DashboardController::class, 'totalIncome']);
 
 });
 Route::post('/login', [AuthController::class, 'login']);
