@@ -26,8 +26,10 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('users', UserController::class);
+
     Route::apiResource('customers', CustomerController::class);
     Route::get('countries', [CustomerController::class, 'getCountries']);
+
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/{order}', [OrderController::class, 'view']);
 
@@ -35,6 +37,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/dashboard/products', [DashboardController::class, 'activeProducts']);
     Route::get('/dashboard/orders', [DashboardController::class, 'paidOrders']);
     Route::get('/dashboard/total', [DashboardController::class, 'totalIncome']);
+    Route::get('/dashboard/orders-country', [DashboardController::class, 'ordersByCountry']);
+
 
 });
 Route::post('/login', [AuthController::class, 'login']);
