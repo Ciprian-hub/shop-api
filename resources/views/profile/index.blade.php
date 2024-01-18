@@ -1,7 +1,5 @@
 <x-app-layout>
-    {{json_encode($countries)}}
-    <div x-data="{
-   }" class="mx-auto lg:w-2/3 p-5">
+    <div x-data="{}" class="mx-auto lg:w-2/3 p-5">
         @if (session('error'))
             <div class="py-2 px-3 bg-red-500 text-white mb-2 rounded">
                 {{ session('error') }}

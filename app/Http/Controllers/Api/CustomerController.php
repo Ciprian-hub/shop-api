@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public static bool $wrap =false;
 
     public function index ()
     {

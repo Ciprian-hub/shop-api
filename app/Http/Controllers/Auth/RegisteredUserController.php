@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
 
         $customer = new Customer();
         $names = explode(" ", $user->name);
-//        $customer->user_id = $user->id;
+        $customer->user_id = $user->id;
         $customer->first_name = $names[0];
         $customer->last_name = $names[1] ?? " ";
         $customer->save();

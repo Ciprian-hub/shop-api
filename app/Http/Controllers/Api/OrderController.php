@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public static $wrap =false;
+
     public function index ()
     {
         $search = request('search', false);
@@ -18,13 +18,14 @@ class OrderController extends Controller
         $sortField = request('sort_field', 'updated_at');
         $sortDirection = request('sort_direction', 'desc');
 
-        $query = \App\Models\Order::query();
-        $query->orderBy($sortField, $sortDirection);
-        if($search){
-            $query->where('id', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%");
-        }
-        return OrderResource::collection($query->paginate($perPage));
+        $query = Order::query()
+            ->withCount('items')
+            ->with('user.customer')
+            ->where('id', 'like', "%{$search}%")
+            ->orderBy($sortField, $sortDirection)
+            ->paginate($perPage);
+
+        return OrderListResource::collection($query);
     }
 
     public function view (Request $request, Order $order)

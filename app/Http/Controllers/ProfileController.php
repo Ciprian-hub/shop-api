@@ -17,18 +17,18 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     /**
+     *
      * Display the user's profile form.
      */
     public function view(Request $request): View
     {
         $user = $request->user();
-        return view('profile.index', [
-            'user' => $request->user(),
-            'customer' => $user->customer,
-            'shippingAddress' => $user->customer->shoppingAddress ?: new Customer(['type' => AddressType::Shipping]),
-            'billingAddress' => $user->customer->billingAddress ?: new Customer(['type' => AddressType::Billing]),
-            'countries' => Country::query()->orderBy('name')->get()
-        ]);
+        $customer = $user->customer;
+        $shippingAddress = $user->customer->shoppingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
+        $billingAddress = $user->customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
+        $countries = Country::query()->orderBy('name')->get();
+
+        return view('profile.index', compact('user', 'customer', 'shippingAddress', 'billingAddress', 'countries'));
     }
 
     /**
