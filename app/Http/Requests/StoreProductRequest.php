@@ -26,6 +26,7 @@ class StoreProductRequest extends FormRequest
             'image' => ['nullable', 'image'],
             'price' => ['required', 'numeric'],
             'description' => ['nullable', 'string'],
+            'published' => ['required', "boolean"],
         ];
     }
 }
