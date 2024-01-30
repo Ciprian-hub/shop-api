@@ -8,6 +8,7 @@ use App\Http\Resources\Dashboard\OrderResource;
 use App\Models\Api\Product;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Traits\ReportTrait;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,8 @@ use function Laravel\Prompts\select;
 
 class DashboardController extends Controller
 {
+    use ReportTrait;
+
     public function activeCustomers()
     {
         return Customer::all()->count();
@@ -89,22 +92,5 @@ class DashboardController extends Controller
                 ->groupBy('o.id')
                 ->get()
         );
-    }
-
-    private function getDatesFromParam()
-    {
-        $request = \request();
-        $paramDate = $request->get('date');
-        $array = [
-            '2d' => Carbon::now()->subDays(1),
-            '1wk' => Carbon::now()->subDays(7),
-            '2wk' => Carbon::now()->subDays(14),
-            '1m' => Carbon::now()->subDays(30),
-            '3m' => Carbon::now()->subDays(90),
-            '6m' => Carbon::now()->subDays(180),
-//            'all'=> Carbon::now()->subDays(1),
-        ];
-
-        return $array[$paramDate] ?? null;
     }
 }
